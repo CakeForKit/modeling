@@ -38,10 +38,11 @@ def task1():
     funcvals = [y0]
     ravals = [0]
 
-    hcur = 1e-5
+    hcur = 1e-4
+    rel_accur = 1e-4
     xmax = 15
-    while xvals[-1] < xmax:
-    # while ravals[-1] < 1e-4:
+    # while xvals[-1] < xmax:
+    while ravals[-1] < rel_accur:
         xi = xvals[-1] + hcur
         yi = yip1(eyvals[-1], edyvals[-1], hcur)
         dyi = dyip1(xvals[-1], eyvals[-1], edyvals[-1], hcur)
@@ -52,13 +53,15 @@ def task1():
         tyvals.append(Tailor(xvals[-1]))
         ravals.append(abs(eyvals[-1] - tyvals[-1]) / tyvals[-1])
         funcvals.append(m.cos(m.sqrt(xvals[-1])))
-    print(f'cnt = {len(xvals)}')
+    # print(f'cnt = {len(xvals)}')
+    print(f'h = {hcur}')
+    print(f'xmax = {xvals[-1]}')
 
     # tab = PrettyTable()
     # tab.field_names = ['x', 'y Euler', 'y Tailor', 'relative accuracy']
     # for i in range(len(xvals)):
     #     row = [f'{xvals[i]:.{accuracy}f}', f'{eyvals[i]:.{accuracy}f}', 
-    #             f'{tyvals[i]:.{accuracy}f}', f'{ravals[i]:.{accuracy}f}']
+    #             f'{tyvals[i]:.{accuracy}f}', f'{ravals[i]:.{accuracy}g}']
     #     tab.add_row(row)
     # print(tab)
 
@@ -73,8 +76,6 @@ def task1():
     plt.legend()
     plt.show()
 
-
-import sys
 
 if __name__ == '__main__':
     task1()
